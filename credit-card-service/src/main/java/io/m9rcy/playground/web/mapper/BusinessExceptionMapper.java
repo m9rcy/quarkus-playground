@@ -1,9 +1,11 @@
 package io.m9rcy.playground.web.mapper;
 
-import org.example.realworldapi.domain.model.exception.*;
-import org.example.realworldapi.infrastructure.web.exception.ResourceNotFoundException;
-import org.example.realworldapi.infrastructure.web.exception.UnauthorizedException;
-import org.example.realworldapi.infrastructure.web.model.response.ErrorResponse;
+import io.m9rcy.playground.domain.model.exception.ApplicationNotFoundException;
+import io.m9rcy.playground.domain.model.exception.BusinessException;
+import io.m9rcy.playground.domain.model.exception.DocumentNotFoundException;
+import io.m9rcy.playground.web.exception.ResourceNotFoundException;
+import io.m9rcy.playground.web.exception.UnauthorizedException;
+import io.m9rcy.playground.web.model.response.ErrorResponse;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -25,14 +27,10 @@ public class BusinessExceptionMapper implements ExceptionMapper<BusinessExceptio
 
     Map<Class<? extends BusinessException>, BusinessExceptionHandler> handlerMap = new HashMap<>();
 
-    handlerMap.put(EmailAlreadyExistsException.class, conflict());
-    handlerMap.put(UserNotFoundException.class, notFound());
-    handlerMap.put(InvalidPasswordException.class, unauthorized());
+    handlerMap.put(ApplicationNotFoundException.class, notFound());
     handlerMap.put(ResourceNotFoundException.class, notFound());
     handlerMap.put(UnauthorizedException.class, unauthorized());
-    handlerMap.put(UsernameAlreadyExistsException.class, conflict());
-    handlerMap.put(TagNotFoundException.class, notFound());
-    handlerMap.put(ArticleNotFoundException.class, notFound());
+    handlerMap.put(DocumentNotFoundException.class, notFound());
 
     return handlerMap;
   }
