@@ -16,11 +16,11 @@ public interface ApplicationService {
             Long loggedUserId);
 
     ApplicationData create(
-            String title, String description, String body, List<String> tagList, Long authorId);
+            String title, String description, String applicationName, Long customerId, String payload);
 
     ApplicationData findBySlug(String slug);
 
-    ApplicationData update(String slug, String title, String description, String body, Long authorId);
+    ApplicationData update(String slug, String title, String description, String applicationName, Long customerId, String payload);
 
     void delete(String slug, Long authorId);
 

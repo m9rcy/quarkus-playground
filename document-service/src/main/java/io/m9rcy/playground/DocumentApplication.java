@@ -1,6 +1,5 @@
 package io.m9rcy.playground;
 
-
 import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
 import org.eclipse.microprofile.openapi.annotations.info.Contact;
 import org.eclipse.microprofile.openapi.annotations.info.Info;
@@ -12,8 +11,8 @@ import javax.ws.rs.core.Application;
 
 @ApplicationPath("/")
 @OpenAPIDefinition(
-        info = @Info(title = "Credit Card API",
-                description = "Internal API that provides Credit Card services",
+        info = @Info(title = "Document Service API",
+                description = "Internal API that provides Document services",
                 version = "1.0",
                 contact = @Contact(name = "m9rcy", url = "https://m9rcy.github.io")),
         servers = {
@@ -21,8 +20,8 @@ import javax.ws.rs.core.Application;
         },
         tags = {
                 @Tag(name = "super-squad", description = "Maintained by Super Squad"),
-                @Tag(name = "credit-card", description = "Credit Card Services")
+                @Tag(name = "documents", description = "Document Services")
         }
 )
-public class CreditCardApplication extends Application {
+public class DocumentApplication extends Application {
 }
