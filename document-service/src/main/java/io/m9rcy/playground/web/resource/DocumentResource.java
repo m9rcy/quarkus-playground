@@ -1,10 +1,14 @@
 package io.m9rcy.playground.web.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.m9rcy.playground.application.data.DocumentData;
+import io.m9rcy.playground.application.data.DocumentsData;
 import io.m9rcy.playground.web.client.UploadService;
 import io.m9rcy.playground.web.filter.ClientOauthRequestFilter;
 import io.m9rcy.playground.web.model.request.DocumentMultipartRequest;
 import io.m9rcy.playground.web.model.response.DocumentResponse;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
@@ -30,11 +34,17 @@ public class DocumentResource {
     @RestClient
     UploadService service;
 
+    @Inject @Channel("documents")
+    Emitter<DocumentData> documents;
+
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@Valid @MultipartForm DocumentMultipartRequest requestBody) throws Exception {
-        return Response.ok(service.sendMockUpload(requestBody)).status(Response.Status.OK).build();
+        DocumentResponse response = service.sendMockUpload(requestBody);
+        DocumentData data = DocumentData.builder().fileId(response.getFileId()).fileName(response.getFileName()).fileType(response.getFileType()).location(response.getLocation()).description(response.getDescription()).build();
+        documents.send(data);
+        return Response.ok(response).status(Response.Status.OK).build();
     }
 
     @GET
@@ -61,7 +71,7 @@ public class DocumentResource {
         LOGGER.info(requestBody.toString());
         DocumentResponse response = new DocumentResponse();
         response.setFileId(UUID.randomUUID().toString());
-        response.setContentType("");
+        response.setFileType("");
         response.setDocumentType(requestBody.getDocumentType());
         response.setFileName(requestBody.getFileName());
         return response;

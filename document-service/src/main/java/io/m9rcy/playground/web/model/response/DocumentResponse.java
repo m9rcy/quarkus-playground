@@ -11,7 +11,8 @@ public class DocumentResponse {
 
     String fileId;
     String fileName;
-    String contentType;
+    String fileType;
+    String description;
     Long contentSize;
     String location;
     String documentType;

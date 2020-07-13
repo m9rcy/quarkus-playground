@@ -3,7 +3,7 @@ package io.m9rcy.playground;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class NativeExampleResourceIT extends ExampleResourceTest {
+public class NativeExampleResourceIT extends DocumentResourceTest {
 
     // Execute the same tests but in native mode.
 }
