@@ -14,7 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/oauth")
 @RegisterRestClient
-@RegisterProvider(value= OauthClientExceptionMapper.class, priority = 50)
+//@RegisterProvider(value= OauthClientExceptionMapper.class, priority = 50)
 public interface OauthService {
 
     @POST

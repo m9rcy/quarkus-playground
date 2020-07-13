@@ -10,8 +10,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import java.io.ByteArrayInputStream;
 
-@Provider
-@Priority(4000)
+//@Provider
+//@Priority(4000)
 public class OauthClientExceptionMapper implements ResponseExceptionMapper<RuntimeException> {
     @Override
     public RuntimeException toThrowable(Response response) {
