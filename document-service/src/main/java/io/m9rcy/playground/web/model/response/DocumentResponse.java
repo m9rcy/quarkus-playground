@@ -16,5 +16,7 @@ public class DocumentResponse {
     Long contentSize;
     String location;
     String documentType;
+    String referenceId;
+    String crsId;
 
 }

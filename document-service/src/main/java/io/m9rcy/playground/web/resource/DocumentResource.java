@@ -42,7 +42,7 @@ public class DocumentResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@Valid @MultipartForm DocumentMultipartRequest requestBody) throws Exception {
         DocumentResponse response = service.sendMockUpload(requestBody);
-        DocumentData data = DocumentData.builder().fileId(response.getFileId()).fileName(response.getFileName()).fileType(response.getFileType()).location(response.getLocation()).description(response.getDescription()).build();
+        DocumentData data = DocumentData.builder().fileId(response.getFileId()).fileName(response.getFileName()).fileType(response.getFileType()).location(response.getLocation()).description(response.getDescription()).referenceId(response.getReferenceId()).crsId(response.getCrsId()).build();
         documents.send(data);
         return Response.ok(response).status(Response.Status.OK).build();
     }
@@ -71,8 +71,13 @@ public class DocumentResource {
         LOGGER.info(requestBody.toString());
         DocumentResponse response = new DocumentResponse();
         response.setFileId(UUID.randomUUID().toString());
-        response.setFileType("");
+        response.setFileType("XXX");
+        response.setContentSize(544L);
+        response.setLocation("http://the.location.of.the.file");
+        response.setDescription(requestBody.getDescription());
         response.setDocumentType(requestBody.getDocumentType());
+        response.setReferenceId(requestBody.getReferenceId());
+        response.setCrsId(requestBody.getCrsId());
         response.setFileName(requestBody.getFileName());
         return response;
     }

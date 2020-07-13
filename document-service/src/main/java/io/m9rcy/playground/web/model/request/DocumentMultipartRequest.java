@@ -40,6 +40,15 @@ public class DocumentMultipartRequest {
     )
     public String documentType;
 
+    @NotNull(message = ValidationMessages.REFERENCE_ID_MUST_BE_NOT_NULL)
+    @FormParam("referenceId")
+    @PartType(MediaType.TEXT_PLAIN)
+    public String referenceId;
+
+    @FormParam("crsId")
+    @PartType(MediaType.TEXT_PLAIN)
+    public String crsId;
+
 
 
 }
