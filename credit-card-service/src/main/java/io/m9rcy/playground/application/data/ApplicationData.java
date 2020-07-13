@@ -18,7 +18,7 @@ public class ApplicationData {
     private String title;
     private String description;
     private String applicationName;
-    private String applicationId;
+    private String customerId;
 
     private String payload;
     private boolean active;

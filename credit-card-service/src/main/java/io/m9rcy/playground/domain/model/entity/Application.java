@@ -25,8 +25,9 @@ public class Application {
   private String title;
   private String description;
   private String applicationName;
-  private String applicationId;
+  private String customerId;
 
+  @Column(name="payload", columnDefinition="LONGTEXT")
   private String payload;
   private boolean active;
 

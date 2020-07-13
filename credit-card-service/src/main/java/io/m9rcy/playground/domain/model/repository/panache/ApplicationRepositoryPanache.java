@@ -3,6 +3,9 @@ package io.m9rcy.playground.domain.model.repository.panache;
 import io.m9rcy.playground.domain.model.entity.Application;
 import io.m9rcy.playground.domain.model.repository.ApplicationRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Page;
+import io.quarkus.panache.common.Parameters;
+import io.quarkus.panache.common.Sort;
 
 import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
@@ -37,17 +40,28 @@ public class ApplicationRepositoryPanache implements PanacheRepository<Applicati
     }
 
     @Override
-    public Optional<Application> findByIdAndSlug(Long applicationId, String slug) {
-        return Optional.empty();
+    public Optional<Application> findByIdAndSlug(Long customerId, String slug) {
+        return find(
+                "customerId = :customerId and upper(slug) = :slug",
+                Parameters.with("customerId", customerId).and("slug", slug.toUpperCase().trim()))
+                .firstResultOptional();
     }
 
     @Override
-    public List<Application> findMostRecentApplications(Long loggedUserId, int offset, int limit) {
-        return null;
+    public List<Application> findMostRecentApplications(Long customerId, int offset, int limit) {
+
+        return find(
+                "customerId = :customerId",
+                Sort.descending("createdAt").and("updatedAt").descending(),
+                Parameters.with("customerId", customerId))
+                .page(Page.of(offset, limit))
+                .list();
     }
 
     @Override
-    public long count(Long loggedUserId) {
-        return 0;
+    public long count(Long customerId) {
+        return count(
+                "customerId = :customerId",
+                Parameters.with("customerId", customerId));
     }
 }

@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface DocumentRepository {
     Document create(Document document);
 
-    Optional<Document> findDocument(String slug, Long documentId, Long applicantId);
+    Optional<Document> findDocument(String slug, Long documentId, Long customerId);
 
     void remove(Document document);
 
-    List<Document> findApplicationDocuments(Long applicationId);
+    List<Document> findApplicationDocuments(Long customerId);
 }

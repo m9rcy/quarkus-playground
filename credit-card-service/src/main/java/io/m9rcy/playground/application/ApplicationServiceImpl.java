@@ -9,10 +9,15 @@ import io.m9rcy.playground.domain.model.provider.SlugProvider;
 import io.m9rcy.playground.domain.model.repository.ApplicationRepository;
 import io.m9rcy.playground.domain.model.repository.DocumentRepository;
 import io.m9rcy.playground.domain.model.service.ApplicationService;
+import org.eclipse.microprofile.opentracing.Traced;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
+@ApplicationScoped
+@Traced
 public class ApplicationServiceImpl implements ApplicationService {
 
     private static final int DEFAULT_LIMIT = 20;
@@ -28,21 +33,26 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
+    @Transactional
     public ApplicationsData findRecentApplications(Long loggedUserId, int offset, int limit) {
         return null;
     }
 
     @Override
+    @Transactional
     public ApplicationsData findApplications(int offset, int limit, Long loggedUserId) {
         return null;
     }
 
     @Override
-    public ApplicationData create(String title, String description, String body, List<String> tagList, Long authorId) {
-        return null;
+    @Transactional
+    public ApplicationData create(String title, String description, String applicationName, Long customerId, String payload) {
+        Application application = createApplication(title, description, applicationName, customerId, payload);
+        return new ApplicationData(application.getSlug(), application.getTitle(), application.getDescription(), application.getApplicationName(), application.getCustomerId(), application.getPayload(), application.isActive(), application.getCreatedAt(), application.getUpdatedAt());
     }
 
     @Override
+    @Transactional
     public ApplicationData findBySlug(String slug) {
 
         Application application = applicationRepository.findBySlug(slug).orElseThrow(ApplicationNotFoundException::new);
@@ -51,16 +61,19 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public ApplicationData update(String slug, String title, String description, String body, Long authorId) {
+    @Transactional
+    public ApplicationData update(String slug, String title, String description, String applicationName, Long customerId, String payload) {
         return null;
     }
 
     @Override
+    @Transactional
     public void delete(String slug, Long authorId) {
 
     }
 
     @Override
+    @Transactional
     public List<DocumentData> findDocumentBySlug(String slug, Long loggedUserId) {
         return null;
     }
@@ -76,7 +89,20 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     private ApplicationData getApplication(Application application) {
-        return new ApplicationData(application.getSlug(), application.getTitle(), application.getDescription(), application.getApplicationName(), application.getApplicationId(), application.getPayload(), application.isActive(), application.getCreatedAt(), application.getUpdatedAt());
+        return new ApplicationData(application.getSlug(), application.getTitle(), application.getDescription(), application.getApplicationName(), application.getCustomerId(), application.getPayload(), application.isActive(), application.getCreatedAt(), application.getUpdatedAt());
+    }
+
+    private Application createApplication(String title, String description, String applicationName, Long customerId, String payload) {
+        Application application = new Application();
+        configSlug(title, application);
+        application.setDescription(description);
+        application.setApplicationName(applicationName);
+        //FIXME
+        application.setCustomerId(String.valueOf(customerId));
+        application.setPayload(payload);
+        application.setActive(true);
+
+        return applicationRepository.create(application);
     }
 
     private void configSlug(String title, Application application) {

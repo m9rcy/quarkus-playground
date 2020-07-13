@@ -17,7 +17,7 @@ public class DocumentRepositoryPanache implements PanacheRepository<Document>, D
     }
 
     @Override
-    public Optional<Document> findDocument(String slug, Long documentId, Long applicantId) {
+    public Optional<Document> findDocument(String slug, Long documentId, Long customerId) {
         return Optional.empty();
     }
 

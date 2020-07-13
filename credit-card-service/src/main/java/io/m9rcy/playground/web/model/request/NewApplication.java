@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class NewApplication {
 
-    private Long id;
+    private Long customerId;
     private String firstName;
     private String lastName;
     private Integer age;
