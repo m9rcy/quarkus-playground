@@ -25,7 +25,7 @@ import java.util.UUID;
 @Path("/documents")
 public class DocumentResource {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClientOauthRequestFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DocumentResource.class);
 
     @Inject
     ObjectMapper objectMapper;
@@ -56,12 +56,69 @@ public class DocumentResource {
     @GET
     @Path("/{fileId}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response download(@PathParam("fileId") String fileId) throws Exception {
+    public Response downloadFile(@PathParam("fileId") String fileId) throws Exception {
         File fileDownload = new File("\test");
         Response.ResponseBuilder response = Response.ok((Object) fileDownload);
         response.header("Content-Disposition", "attachment;filename=" + fileId);
         return response.build();
     }
+
+    @PUT
+    @Path("/{fileId}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response updateFile(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @DELETE
+    @Path("/{fileId}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response deleteFile(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @GET
+    @Path("/{fileId}/info")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response fileInfo(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @POST
+    @Path("/{fileId}/copy")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response fileCopy(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @POST
+    @Path("/{fileId}/touch")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response fileTouch(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @POST
+    @Path("/{fileId}/trash")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response fileTrash(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
+    @POST
+    @Path("/{fileId}/untrash")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response fileUntrash(@PathParam("fileId") String fileId) throws Exception {
+        return Response.status(Response.Status.NOT_IMPLEMENTED)
+                       .entity("Not yet available").build();
+    }
+
 
     @POST
     @Path("/upload")
