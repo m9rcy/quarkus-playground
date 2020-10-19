@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Getter
@@ -20,8 +21,8 @@ public class Tag {
 
   private String name;
 
-  //@OneToMany(fetch = FetchType.LAZY, mappedBy = "tag")
-  //private List<ArticlesTags> articlesTags;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "tag")
+  private List<DocumentsTags> documentsTags;
 
   public Tag(String name) {
     this.name = name;

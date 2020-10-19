@@ -11,7 +11,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "ARTICLES_TAGS")
+@Table(name = "DOCUMENTS_TAGS")
 public class DocumentsTags {
     @EmbeddedId private DocumentsTagsKey primaryKey;
 
@@ -21,7 +21,7 @@ public class DocumentsTags {
 
     @ManyToOne
     @JoinColumn(insertable = false, updatable = false)
-    private Document article;
+    private Document document;
 
     @ManyToOne
     @JoinColumn(insertable = false, updatable = false)

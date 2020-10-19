@@ -17,7 +17,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ARTICLES")
+@Table(name = "DOCUMENTS")
 public class Document {
 
   @Id
@@ -29,12 +29,13 @@ public class Document {
   private String contentType;
   private String crsId;
   private String referenceId;
+  private boolean deleted;
 
   @CreationTimestamp private LocalDateTime createdAt;
   @UpdateTimestamp private LocalDateTime updatedAt;
 
 
-  @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "document", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<DocumentsTags> tags;
 
 

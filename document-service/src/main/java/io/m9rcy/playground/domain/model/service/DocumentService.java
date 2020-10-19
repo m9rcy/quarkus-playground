@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DocumentService {
 
-    DocumentsData findRecentArticles(Long loggedUserId, int offset, int limit);
+    DocumentsData findRecentDocuments(String crsId, int offset, int limit);
 
-    DocumentsData findArticles(
+    DocumentsData findDocuments(
             int offset,
             int limit,
             String crsId,
@@ -20,7 +20,7 @@ public interface DocumentService {
 
     DocumentData update(String fileName, String description, String contentType, String crsId, String referenceId);
 
-    void delete(String slug, Long authorId);
+    void delete(Long documentId, String crsId);
 
     DocumentData trashDocument(Long documentId, String crsId);
 

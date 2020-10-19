@@ -1,14 +1,14 @@
 package io.m9rcy.playground.domain.model.entity;
 
 import lombok.AllArgsConstructor;
-        import lombok.Getter;
-        import lombok.NoArgsConstructor;
-        import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-        import javax.persistence.Embeddable;
-        import javax.persistence.ManyToOne;
-        import java.io.Serializable;
-        import java.util.Objects;
+import javax.persistence.Embeddable;
+import javax.persistence.ManyToOne;
+import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
 @Setter
