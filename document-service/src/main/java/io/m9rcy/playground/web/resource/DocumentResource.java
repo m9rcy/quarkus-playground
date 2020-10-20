@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.m9rcy.playground.application.data.DocumentData;
 import io.m9rcy.playground.application.data.DocumentsData;
 import io.m9rcy.playground.domain.model.service.DocumentService;
+import io.m9rcy.playground.domain.model.service.FileService;
 import io.m9rcy.playground.web.client.UploadService;
 import io.m9rcy.playground.web.model.request.DocumentMultipartRequest;
 import io.m9rcy.playground.web.model.response.DocumentResponse;
 import io.m9rcy.playground.web.model.response.DocumentsResponse;
+import org.apache.tika.Tika;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -36,6 +38,12 @@ public class DocumentResource {
     DocumentService documentService;
 
     @Inject
+    FileService fileService;
+
+    @Inject
+    Tika tika;
+
+    @Inject
     @RestClient
     UploadService service;
 
@@ -46,6 +54,9 @@ public class DocumentResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@Valid @MultipartForm DocumentMultipartRequest requestBody) throws Exception {
+
+        String mimetype = tika.detect(requestBody.file);
+        LOGGER.info("Mime type: {}", mimetype);
 
         DocumentData documentData = documentService.create(
                 requestBody.fileName, requestBody.description, null, requestBody.tags, requestBody.crsId, requestBody.referenceId);

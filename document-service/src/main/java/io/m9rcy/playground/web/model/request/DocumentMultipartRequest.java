@@ -9,17 +9,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.jboss.resteasy.annotations.providers.multipart.PartType;
 
-import javax.inject.Inject;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +25,7 @@ public class DocumentMultipartRequest {
     @FormParam("file")
     @PartType(MediaType.APPLICATION_OCTET_STREAM)
     public InputStream file;
+    //public File file;
 
     @FormParam("fileName")
     @PartType(MediaType.TEXT_PLAIN)
