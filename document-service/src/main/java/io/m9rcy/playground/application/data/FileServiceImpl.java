@@ -28,11 +28,11 @@ public class FileServiceImpl implements FileService {
     public Uni<Void> deleteFileUpload(String fileName) {
         String uploadedFileName = fileUploadLocation + fileName;
         FileSystem fileSystem = vertx.fileSystem();
-        Boolean exists = fileSystem.exists(uploadedFileName).map(existsResult -> existsResult).await().indefinitely();
-        if (exists) {
-            return fileSystem.delete(uploadedFileName);
-        }
-        return Uni.createFrom().item(null);
+//        Boolean exists = fileSystem.exists(uploadedFileName).map(existsResult -> existsResult).await().indefinitely();
+//        if (exists) {
+//            return fileSystem.delete(uploadedFileName);
+//        }
+        return Uni.createFrom().nullItem();
     }
 
     @Override

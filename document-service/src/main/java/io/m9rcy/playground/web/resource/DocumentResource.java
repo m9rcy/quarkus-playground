@@ -4,14 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.m9rcy.playground.application.data.DocumentData;
 import io.m9rcy.playground.application.data.DocumentsData;
 import io.m9rcy.playground.domain.model.service.DocumentService;
-import io.m9rcy.playground.domain.model.service.FileService;
 import io.m9rcy.playground.web.client.UploadService;
 import io.m9rcy.playground.web.model.request.DocumentMultipartRequest;
 import io.m9rcy.playground.web.model.response.DocumentResponse;
 import io.m9rcy.playground.web.model.response.DocumentsResponse;
+import io.micrometer.core.instrument.MeterRegistry;
 import org.apache.tika.Tika;
-import org.eclipse.microprofile.reactive.messaging.Channel;
-import org.eclipse.microprofile.reactive.messaging.Emitter;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.slf4j.Logger;
@@ -25,6 +23,7 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 @Path("/documents")
 public class DocumentResource {
@@ -37,8 +36,8 @@ public class DocumentResource {
     @Inject
     DocumentService documentService;
 
-    @Inject
-    FileService fileService;
+    //@Inject
+    //FileService fileService;
 
     @Inject
     Tika tika;
@@ -47,8 +46,12 @@ public class DocumentResource {
     @RestClient
     UploadService service;
 
-    @Inject @Channel("documents")
-    Emitter<DocumentData> documents;
+    //@Inject @Channel("documents")
+    //Emitter<DocumentData> documents;
+
+    @Inject
+    MeterRegistry registry;
+
 
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -60,10 +63,14 @@ public class DocumentResource {
 
         DocumentData documentData = documentService.create(
                 requestBody.fileName, requestBody.description, null, requestBody.tags, requestBody.crsId, requestBody.referenceId);
-        documents.send(documentData);
+        //documents.send(documentData);
 
         DocumentResponse response = new DocumentResponse(documentData);
-        return Response.ok(response).status(Response.Status.CREATED).build();
+
+        Supplier<Response> supplierResponse = () -> {
+            return Response.ok(response).status(Response.Status.CREATED).build();
+        };
+        return registry.timer("document.upload").wrap(supplierResponse).get();
     }
 
     @GET
