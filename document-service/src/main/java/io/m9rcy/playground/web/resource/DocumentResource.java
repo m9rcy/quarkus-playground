@@ -67,6 +67,7 @@ public class DocumentResource {
 
         DocumentResponse response = new DocumentResponse(documentData);
 
+        //return Response.ok(response).status(Response.Status.CREATED).build();
         Supplier<Response> supplierResponse = () -> {
             return Response.ok(response).status(Response.Status.CREATED).build();
         };

@@ -13,6 +13,7 @@
         <module>credit-card-service</module>
         <module>document-service</module>
         <module>assessment-service</module>
+        <module>azure-vault</module>
     </modules>
 
 

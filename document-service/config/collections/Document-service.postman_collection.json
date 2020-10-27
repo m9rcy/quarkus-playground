@@ -1,0 +1,246 @@
+{
+	"info": {
+		"_postman_id": "05ee8556-7d9b-47fd-bad3-b13b6e3d710d",
+		"name": "Document-service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Microservice File upload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tags",
+							"value": "[\"income\",\"expense\"]",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/m809280/Desktop/loan-api.postman_collection.json"
+						},
+						{
+							"key": "referenceId",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "documentType",
+							"value": "CREDIT_CARD",
+							"type": "text"
+						},
+						{
+							"key": "fileName",
+							"value": "sample.txt",
+							"type": "text"
+						},
+						{
+							"key": "crsId",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8092/documents",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Microservice File upload Minikube",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "tags",
+							"value": "[\"income\",\"expense\"]",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/m809280/Desktop/loan-api.postman_collection.json"
+						},
+						{
+							"key": "referenceId",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "documentType",
+							"value": "CREDIT_CARD",
+							"type": "text"
+						},
+						{
+							"key": "fileName",
+							"value": "sample.txt",
+							"type": "text"
+						},
+						{
+							"key": "crsId",
+							"value": "123",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8092/documents",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Microser List files",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8092/documents?limit=20&offset=0",
+					"host": [
+						"localhost"
+					],
+					"port": "8092",
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API Connect - Document Service Proto - File Upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-IBM-Client-Id",
+						"value": "xxx",
+						"type": "text"
+					},
+					{
+						"key": "X-IBM-Client-Secret",
+						"value": "xxx",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/C:/dev/Notes.txt"
+						},
+						{
+							"key": "filename",
+							"value": "a-sample.jpg",
+							"type": "text"
+						},
+						{
+							"key": "tags",
+							"value": "[\"income\",\"expense\"]",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://connect.syst.westpac.co.nz/wone/v1/documents",
+					"protocol": "https",
+					"host": [
+						"connect",
+						"syst",
+						"westpac",
+						"co",
+						"nz"
+					],
+					"path": [
+						"wone",
+						"v1",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API Connect - Document Service Proto - List files",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-IBM-Client-Id",
+						"value": "xxx",
+						"type": "text"
+					},
+					{
+						"key": "X-IBM-Client-Secret",
+						"value": "xxx",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://connect.syst.westpac.co.nz/wone/v1/documents",
+					"protocol": "https",
+					"host": [
+						"connect",
+						"syst",
+						"westpac",
+						"co",
+						"nz"
+					],
+					"path": [
+						"wone",
+						"v1",
+						"documents"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
