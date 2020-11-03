@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+    port: "8092"
+    database: "jdbc:postgresql://document-database:5432/document_database"
+    kafka: "mini-kafka-kafka-brokers:9092"
+    upload: "http://document-service:8092"
+kind: ConfigMap
+metadata:
+    name: document-config
